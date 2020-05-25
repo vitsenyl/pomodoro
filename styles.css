@@ -1,7 +1,13 @@
+html {
+    background-color: rgba(49, 75, 190, 1);
+    font-family: sans-serif;
+}
+
 .main-container {
     text-align: center;
+    color: white;
     margin: auto;
-    width: 400px;
+    width: 600px;
 }
 
 .config-wrapper {
@@ -9,17 +15,27 @@
     justify-content: space-evenly;
 }
 
-.clock-wrapper{
+.controls-wrapper{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
 }
 
 .button {
-    background-color: lightgray;
-    height: 50px;
-    width: 50px;
+    width: 100px;
     border-radius: 50%;
-    
-    line-height: 45px;
+    font-size: 300%;
+    color: white;
+}
+
+#timer {
+    font-size: 150px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#status {
+    font-size: 60px;
+    margin-top: 50px;
+    margin-bottom: 0px;
 }

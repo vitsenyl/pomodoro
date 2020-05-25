@@ -6,49 +6,58 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const pauseButton = document.getElementById('pause');
 const stopButton = document.getElementById('stop');
+const statusDisplay = document.getElementById('status')
 
 let targetTime;
 let timeLeft;
-let state = 'standby';
+let state = 'Standby';
 let countdown;
 
 startButton.onclick = start;
 resetButton.onclick = reset;
 pauseButton.onclick = pause;
 stopButton.onclick = stop;
-let s;
+
+function updateState(newState) {
+    state = newState;
+    statusDisplay.textContent = newState;
+}
 
 function stop() {
     clearInterval(countdown);
-    state = 'standby';
+    updateState('Standby');
+    reset();
 }
 
 function pause() {
-    if (state == 'running') {
+    if (state == 'Running') {
         let currentTime = new Date().getTime();
         timeLeft = targetTime - currentTime;
         clearInterval(countdown);
-        state = 'paused'
+        updateState('Paused');
     }
 }
 
 function start() {
     let currentTime = new Date().getTime();
-    if (state == 'running') {
+    if (state == 'Running') {
         return;
-    } else if (state == 'paused') {
+    } else if (state == 'Paused') {
         targetTime = currentTime + timeLeft;
-    } else if (state == 'standby') {
+    } else if (state == 'Standby') {
         reset();
     }
     countdown = setInterval(updateTimer, 1000);
-    state = 'running';
+    updateState('Running');
 }
 
 function reset() {
     let currentTime = new Date().getTime();
     targetTime = currentTime + (sessionLength.textContent * 1000 * 60);
     updateTimer();
+    if (state == 'Paused') {
+        updateState('Standby');
+    }
 }
 
 function updateTimer() {
@@ -61,8 +70,7 @@ function updateTimer() {
     
     if (timeDifference <= 0) {
         clearInterval(countdown);
-        timer.textContent = "Break Time";
-        state = 'break';
+        updateState('Break');
     } else {
         timer.textContent = `${m}:${s.toString().padStart(2,'0')}`;
     }
