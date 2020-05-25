@@ -1,0 +1,25 @@
+.main-container {
+    text-align: center;
+    margin: auto;
+    width: 400px;
+}
+
+.config-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.clock-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    background-color: lightgray;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    
+    line-height: 45px;
+}

@@ -11,7 +11,34 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
+
 <body>
-  <script></script>
+    <div class="main-container">
+        <h1>Pomodoro Clock</h1>
+
+        <div class="config-wrapper">            
+            <div id="session-config" class="config-block">
+                <h3>Session</h3>
+                <p id="session-length" class="config" contenteditable="true">25</p>
+            </div>
+            <div id="break-config" class="config-block">
+                <h3>Break</h3>
+                <p id="break-length" class="config" contenteditable="true">5</p>
+            </div>
+        </div>
+            
+        <div class="clock-wrapper">
+            <div id="play" class="button">Start</div>
+            <div id="restart" class="button">Restart</div>
+            <div class="timer-wrapper">
+                
+                <p id="timer">25:00</p>
+            </div>
+            <div id="pause" class="button">Pause</div>
+            <div id="stop" class="button">Stop</div>
+        </div>
+    </div>
+
+  <script src=script.js></script>
 </body>
 </html>
