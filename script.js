@@ -25,8 +25,8 @@ configEntries.forEach(configEntry => (configEntry.addEventListener('change', ent
 function entryChange(e) {
 
     // Set upper and lower limits
-    if (this.value > 60) {
-        this.value = 60;
+    if (this.value > 99) {
+        this.value = 99;
     } else if (this.value < 1) {
         this.value = 1;
     }
@@ -104,6 +104,8 @@ function updateTimer() {
 
     let s = Math.floor(timeDifference % (1000*60) / 1000);
     let m = Math.floor(timeDifference % (1000*60*60)/(1000*60));
+    let h = Math.floor(timeDifference % (1000*60*60*60)/(1000*60*60));
+    m += h*60;
  
     if (timeDifference <= 0) {
         clearInterval(countdown);
