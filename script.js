@@ -8,8 +8,6 @@ const pauseButton = document.getElementById('pause');
 const stopButton = document.getElementById('stop');
 const statusDisplay = document.getElementById('status');
 
-
-
 let targetTime;
 let timeLeft;
 let state = 'Standby';
@@ -23,6 +21,7 @@ stopButton.onclick = stop;
 function updateState(newState) {
     state = newState;
     statusDisplay.textContent = newState;
+    console.log(state);
 }
 
 function stop() {
@@ -39,23 +38,26 @@ function pause() {
         timeLeft = targetTime - currentTime;
         clearInterval(countdown);
         updateState('Paused');
-    } else if (state == 'Break') {
-
     }
 }
 
+function startCountdown () {
+    countdown = setInterval(updateTimer, 1000);
+}
+
 function start() {
-    let currentTime = new Date().getTime();
+
     if (state == 'Running') {
         return;
     } else if (state == 'Paused') {
+        let currentTime = new Date().getTime();
         targetTime = currentTime + timeLeft;
     } else if (state == 'Standby') {
         reset();
         const resetSound = new Audio('audio/bell-ring-01.mp3');
         resetSound.play();
     }
-    countdown = setInterval(updateTimer, 1000);
+    startCountdown();
     updateState('Running');
 }
 
@@ -64,11 +66,12 @@ function reset() {
     targetTime = currentTime + (sessionLength.textContent * 1000 * 60);
     updateTimer();
 
-    if (state == 'Running') {
+    if (state == 'Standby') {
+        return;
+    } else if (state == 'Running') {
         const resetSound = new Audio('audio/bell-ring-01.mp3');
         resetSound.play();
-    }
-    if (state == 'Paused' || state == 'Break') {
+    } else {
         updateState('Standby');
     } 
 }
@@ -100,6 +103,9 @@ function startBreak() {
     targetTime = currentTime + (breakLength.textContent * 1000 * 60);
     updateTimer();
 
-    countdown = setInterval(updateTimer, 1000);
+    startCountdown();
     updateState('Break');
 }
+
+// document.body.style.backgroundColor =  'rgba(49, 190, 75, 1)';
+// document.body.style.backgroundColor =  'rgba(49, 75, 190, 1)';
