@@ -73,6 +73,7 @@ function reset() {
         resetSound.play();
     } else {
         updateState('Standby');
+        document.body.style.backgroundColor =  'rgba(49, 75, 190, 1)';
     } 
 }
 
@@ -103,9 +104,8 @@ function startBreak() {
     targetTime = currentTime + (breakLength.textContent * 1000 * 60);
     updateTimer();
 
+    document.body.style.backgroundColor =  'rgba(49, 190, 75, 1)';
+    
     startCountdown();
     updateState('Break');
 }
-
-// document.body.style.backgroundColor =  'rgba(49, 190, 75, 1)';
-// document.body.style.backgroundColor =  'rgba(49, 75, 190, 1)';
