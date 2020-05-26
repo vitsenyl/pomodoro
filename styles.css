@@ -15,6 +15,18 @@ body {
     justify-content: space-evenly;
 }
 
+.config-block {
+    border: solid;
+    border-color: white;
+    border-radius: 25px;
+    width: 100px;
+}
+
+.config {
+    font-size: 200%;
+    margin: auto 20px;
+}
+
 .controls-wrapper{
     display: flex;
     justify-content: space-between;
@@ -23,15 +35,21 @@ body {
 
 .button {
     width: 100px;
-    border-radius: 50%;
     font-size: 300%;
     color: white;
+}
+
+.button:hover {
+    transform: scale(110%);
+    box-shadow: black;
 }
 
 #timer {
     font-size: 150px;
     margin-top: 20px;
     margin-bottom: 50px;
+    border: solid;
+    border-radius: 30px;
 }
 
 #status {
