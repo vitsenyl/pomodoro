@@ -9,7 +9,8 @@ I should go back to my previous exercises and practice designing more dynamic UI
 
 ## ToDo
 - [ ] Add Increment and Decrement buttons for the timer
-- [ ] During Standby, update the the timer when session value changes
+- [x] During Standby, update the the timer when session value changes
+- [x] Allow Pomodoro timer to automatically start when a break finishes
 
 ## Lessons Learned
 1. Can add audio to a program in two separate ways depending on if you want to hide the audio filepath or use a DOM-path.
@@ -29,4 +30,23 @@ Math.floor(currentTime % (1000*60) / 1000); // Returns the amount of seconds as 
 ```javascript
 '543.2'.padStart(6,'0') // returns '0543.2'
 ```
-4. If you want an audio file to play repeatedly, create new Audio objects for each time you call the file. Otherwise it'll wait until the file finished playing the first time. 
+4. If you want an audio file to play multiple times in rapid succession, create new Audio objects for each time you call the file. Otherwise you must wait until the file finished playing the first time. 
+
+5. [Viewport meta tag in HTML](https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag) helps to set the viewing dimensions when on mobile
+6. [Contenteditable attribute](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) allows user to modify text content.
+7. Input tags for user input opens up a lot of configuration options (e.g. limiting entries to just numbers) 
+8. Can remove increment/decrement buttons on default input ([See stackoverflow discussion](https://stackoverflow.com/questions/40690284/remove-increment-and-decrement-icon-from-input-field))
+```css
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+```
+9. Add line breaks in Flexbox layout with [these options](https://tobiasahlin.com/blog/flexbox-break-to-new-row/)
+```css
+.linebreak {
+    flex-basis: 100%;
+    height: 0;
+}
+```
