@@ -25,6 +25,19 @@ body {
 .config {
     font-size: 200%;
     margin: auto 20px;
+    width: 50%;
+    text-align: center;
+    background-color: inherit;
+    color: inherit;
+    border: none;
+}
+
+/* Disabling increment and decrement buttons on inputs */
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .controls-wrapper{
@@ -37,6 +50,7 @@ body {
     width: 100px;
     font-size: 300%;
     color: white;
+    cursor: pointer;
 }
 
 .button:hover {

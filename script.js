@@ -7,16 +7,34 @@ const resetButton = document.getElementById('reset');
 const pauseButton = document.getElementById('pause');
 const stopButton = document.getElementById('stop');
 const statusDisplay = document.getElementById('status');
+const configEntries = document.querySelectorAll('.config');
 
 let targetTime;
 let timeLeft;
 let state = 'Standby';
 let countdown;
+let ndebug;
 
 startButton.onclick = start;
 resetButton.onclick = reset;
 pauseButton.onclick = pause;
 stopButton.onclick = stop;
+
+configEntries.forEach(configEntry => (configEntry.addEventListener('change', entryChange)));
+
+function entryChange(e) {
+
+    // Set upper and lower limits
+    if (this.value > 60) {
+        this.value = 60;
+    } else if (this.value < 1) {
+        this.value = 1;
+    }
+    
+    if (state == 'Standby') {
+        reset();
+    }
+}
 
 function updateState(newState) {
     state = newState;
@@ -48,8 +66,7 @@ function startCountdown () {
 }
 
 function start() {
-
-    if (state == 'Running') {
+    if (state == 'Running' || state == 'Break') {
         return;
     } else if (state == 'Standby') {
         reset();
@@ -59,14 +76,15 @@ function start() {
         let currentTime = new Date().getTime();
         targetTime = currentTime + timeLeft;
     }
+
     updateState( (state=='Break Paused') ? 'Break' : 'Running');
     startCountdown();
 }
 
 function reset() {
     let currentTime = new Date().getTime();
-    let target = (state.search('Break')) ? breakLength : sessionLength);
-    targetTime = currentTime + (target.textContent * 1000 * 60);
+    let target = state.includes('Break') ? breakLength : sessionLength;
+    targetTime = currentTime + (target.value * 1000 * 60);
     updateTimer();
 
     if (state == 'Standby') {
@@ -103,7 +121,7 @@ function updateTimer() {
 
 function startBreak() {
     let currentTime = new Date().getTime();
-    targetTime = currentTime + (breakLength.textContent * 1000 * 60);
+    targetTime = currentTime + (breakLength.value * 1000 * 60);
     updateTimer();
 
     document.body.style.backgroundColor =  'rgba(49, 190, 75, 1)';

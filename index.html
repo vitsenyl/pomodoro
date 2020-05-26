@@ -16,19 +16,19 @@
         <h1>Pomodoro Timer</h1>
 
         <div class="config-wrapper">            
-            <div id="session-config" class="config-block">
+            <div class="config-block">
                 <h3>Session</h3>
-                <p id="session-length" class="config" contenteditable="true">20</p>
+                <input id="session-length" class="config" value="20" type="number" min="0" max="60">
                 <p>minutes</p>
             </div>
-            <div id="break-config" class="config-block">
+            <div class="config-block">
                 <h3>Break</h3>
-                <p id="break-length" class="config" contenteditable="true">5</p>
+                <input id="break-length" class="config" value ="5" type="number" min="0" max="60">
                 <p>minutes</p>
             </div>
         </div>
         <div class="timer-wrapper">
-            <p id='status'>Standby</p>    
+            <p id="status">Standby</span>    
             <p id="timer">20:00</p>
         </div>
         <div class="controls-wrapper">
