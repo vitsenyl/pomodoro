@@ -29,6 +29,7 @@ stopButton.onclick = stop;
 sessionLength.addEventListener('change', checkBounds);
 breakLength.addEventListener('change', checkBounds);
 
+reset();
 //Utility functions
 
 function updateState(newState) {
