@@ -8,6 +8,7 @@ const pauseButton = document.getElementById('pause');
 const stopButton = document.getElementById('stop');
 const statusDisplay = document.getElementById('status');
 const configEntries = document.querySelectorAll('.config');
+const autoStart = document.querySelector('#auto-repeat');
 
 let targetTime;
 let timeLeft;
@@ -23,7 +24,6 @@ stopButton.onclick = stop;
 configEntries.forEach(configEntry => (configEntry.addEventListener('change', entryChange)));
 
 function entryChange(e) {
-
     // Set upper and lower limits
     if (this.value > 99) {
         this.value = 99;
@@ -69,7 +69,6 @@ function start() {
     if (state == 'Running' || state == 'Break') {
         return;
     } else if (state == 'Standby') {
-        reset();
         const resetSound = new Audio('audio/bell-ring-01.mp3');
         resetSound.play();
     }  else {
@@ -83,8 +82,7 @@ function start() {
 
 function reset() {
     let currentTime = new Date().getTime();
-    let target = state.includes('Break') ? breakLength : sessionLength;
-    targetTime = currentTime + (target.value * 1000 * 60);
+    targetTime = currentTime + (sessionLength.value * 1000 * 60);
     updateTimer();
 
     if (state == 'Standby') {
@@ -92,7 +90,7 @@ function reset() {
     } else if (state == 'Running') {
         const resetSound = new Audio('audio/bell-ring-01.mp3');
         resetSound.play();
-    } else {
+    } else {        
         updateState('Standby');
         document.body.style.backgroundColor =  'rgba(49, 75, 190, 1)';
     } 
@@ -112,6 +110,11 @@ function updateTimer() {
         if (state == 'Running') {
             startBreak();
         } else if (state == 'Break') {
+            if (autoStart.value == "on") {
+                reset();
+                start();
+                return;              
+            }
             reset();
         }    
         const breakSound = new Audio('audio/bell-ringing-04.mp3');
