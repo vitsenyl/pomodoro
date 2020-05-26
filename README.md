@@ -7,6 +7,10 @@ The interactions for this project was more complex than I anticipated initially,
 
 I should go back to my previous exercises and practice designing more dynamic UI with HTML/CSS/JS. My solutions are typically functional but ugly. Or minimalistic. Minimalistic. Yup. 
 
+## ToDo
+[] Add Increment and Decrement buttons for the timer
+[] During Standby, update the the timer when session value changes
+
 ## Lessons Learned
 1. Can add audio to a program in two separate ways depending on if you want to hide the audio filepath or use a DOM-path.
 ```javascript
