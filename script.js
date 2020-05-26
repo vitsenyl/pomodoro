@@ -10,6 +10,8 @@ const pauseButton = document.getElementById('pause');
 const stopButton = document.getElementById('stop');
 const statusDisplay = document.getElementById('status');
 
+
+// Audio from https://www.soundjay.com/bell-sound-effect.html
 const resetSound = new Audio('audio/bell-ring-01.mp3');
 const breakSound = new Audio('audio/bell-ringing-04.mp3');
 
