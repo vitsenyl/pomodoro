@@ -27,18 +27,20 @@ function updateState(newState) {
 function stop() {
     if (state != 'Standby') {
         clearInterval(countdown);
-        updateState('Standby');
         reset();
+        updateState('Standby');
     }
 }
 
 function pause() {
-    if (state == 'Running') {
-        let currentTime = new Date().getTime();
-        timeLeft = targetTime - currentTime;
-        clearInterval(countdown);
-        updateState('Paused');
-    }
+    if (state == 'Standby' || state == 'Break Paused') {
+        return;
+    } 
+
+    let currentTime = new Date().getTime();
+    timeLeft = targetTime - currentTime;
+    clearInterval(countdown);
+    updateState( (state=='Running') ? 'Paused' : 'Break Paused');
 }
 
 function startCountdown () {
@@ -49,21 +51,22 @@ function start() {
 
     if (state == 'Running') {
         return;
-    } else if (state == 'Paused') {
-        let currentTime = new Date().getTime();
-        targetTime = currentTime + timeLeft;
     } else if (state == 'Standby') {
         reset();
         const resetSound = new Audio('audio/bell-ring-01.mp3');
         resetSound.play();
+    }  else {
+        let currentTime = new Date().getTime();
+        targetTime = currentTime + timeLeft;
     }
+    updateState( (state=='Break Paused') ? 'Break' : 'Running');
     startCountdown();
-    updateState('Running');
 }
 
 function reset() {
     let currentTime = new Date().getTime();
-    targetTime = currentTime + (sessionLength.textContent * 1000 * 60);
+    let target = (state.search('Break')) ? breakLength : sessionLength);
+    targetTime = currentTime + (target.textContent * 1000 * 60);
     updateTimer();
 
     if (state == 'Standby') {
@@ -81,10 +84,9 @@ function updateTimer() {
     let currentTime = new Date().getTime();
     timeDifference = targetTime - currentTime;
 
-    s = Math.floor(timeDifference % (1000*60) / 1000);
-    m = Math.floor(timeDifference % (1000*60*60)/(1000*60));
+    let s = Math.floor(timeDifference % (1000*60) / 1000);
+    let m = Math.floor(timeDifference % (1000*60*60)/(1000*60));
  
-    
     if (timeDifference <= 0) {
         clearInterval(countdown);
         if (state == 'Running') {
@@ -105,7 +107,7 @@ function startBreak() {
     updateTimer();
 
     document.body.style.backgroundColor =  'rgba(49, 190, 75, 1)';
-    
+
     startCountdown();
     updateState('Break');
 }
