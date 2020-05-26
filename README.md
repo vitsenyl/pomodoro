@@ -1,6 +1,6 @@
 # pomodoro
 
-A simple Pomodoro timer for [The Odin Project](https://www.theodinproject.com/courses/web-development-101/lessons/pairing-project). No pair programming, just solo for this one. 
+A simple Pomodoro timer for [The Odin Project](https://www.theodinproject.com/courses/web-development-101/lessons/pairing-project). No pair programming, just solo for this one.  [Try it out](https://vitsenyl.github.io/pomodoro/).
 
 ## General Thoughts
 The interactions for this project was more complex than I anticipated initially, but very manageable when broken down into individual components. I ended up implementing a state machine that transitioned based on what buttons were hit. 
@@ -25,3 +25,4 @@ Math.floor(currentTime % (1000*60) / 1000); // Returns the amount of seconds as 
 ```javascript
 '543.2'.padStart(6,'0') // returns '0543.2'
 ```
+4. If you want an audio file to play repeatedly, create new Audio objects for each time you call the file. Otherwise it'll wait until the file finished playing the first time. 
