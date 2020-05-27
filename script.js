@@ -140,8 +140,8 @@ function pause() {
 function stop() {
     if (state != 'Standby') {
         clearInterval(countdown);
-        reset();
         updateState('Standby');
+        reset();
         document.body.style.backgroundColor = 'rgba(49, 75, 190, 1)';
     }
 }
