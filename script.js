@@ -35,7 +35,6 @@ reset();
 function updateState(newState) {
     state = newState;
     statusDisplay.textContent = newState;
-    console.log(state);
 }
 
 function startCountdown () {
@@ -56,12 +55,14 @@ function updateTimer() {
         if (state == 'Running') {
             startBreak();
         } else if (state == 'Break') {
-            if (autoStart.value == "on") {
-                reset();
+            document.body.style.backgroundColor = 'rgba(49, 75, 190, 1)';
+            updateState('Standby');
+            reset();
+
+            if (autoStart.checked) {
                 start();
                 return;              
             }
-            reset();
         }    
         breakSound.play();
     } else {
@@ -98,41 +99,42 @@ function checkBounds(e) {
 function start() {
     if (state == 'Running' || state == 'Break') {
         return;
-    } else if (state == 'Standby') {
+    }
+   
+    if (state == 'Standby') {
+        reset();
         resetSound.play();
-    }  else {
+    }  else if (state.includes('Paused')) {
         let currentTime = new Date().getTime();
         targetTime = currentTime + timeLeft;
-    }
+    }   
 
-    updateState( (state=='Break Paused') ? 'Break' : 'Running');
+    updateState(state.includes('Break') ? 'Break' : 'Running');
     startCountdown();
 }
 
 function reset() {
     let currentTime = new Date().getTime();
-    targetTime = currentTime + (sessionLength.value * 1000 * 60);
+    let target = state.includes('Break') ? breakLength : sessionLength;
+    targetTime = currentTime + (target.value * 1000 * 60);
     updateTimer();
 
-    if (state == 'Standby') {
-        return;
+    if (state == 'Paused') {
+        updateState('Standby');
     } else if (state == 'Running') {
         resetSound.play();
-    } else {        
-        updateState('Standby');
-        document.body.style.backgroundColor =  'rgba(49, 75, 190, 1)';
-    } 
+    } else if (state == 'Break Paused') {
+        updateState('Break Reset');
+    }
 }
 
 function pause() {
-    if (state == 'Standby' || state == 'Break Paused') {
-        return;
-    } 
-
-    let currentTime = new Date().getTime();
-    timeLeft = targetTime - currentTime;
-    clearInterval(countdown);
-    updateState( (state=='Running') ? 'Paused' : 'Break Paused');
+    if (state == 'Running' || state.includes('Break')) {
+        let currentTime = new Date().getTime();
+        timeLeft = targetTime - currentTime;
+        clearInterval(countdown);
+        updateState( state.includes('Break') ? 'Break Paused' : 'Paused');
+    }
 }
 
 function stop() {
@@ -140,5 +142,6 @@ function stop() {
         clearInterval(countdown);
         reset();
         updateState('Standby');
+        document.body.style.backgroundColor = 'rgba(49, 75, 190, 1)';
     }
 }
